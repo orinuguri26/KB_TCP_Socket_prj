@@ -1,49 +1,36 @@
 package dto;
 
+import lombok.*;
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductDto {
-    private int id;
+    private static long cnt_id = 1;
+    private long id;
     private String name;
     private int price;
     private int stock;
 
-    public ProductDto(){}
-
-    public ProductDto(int id, String name, int price, int stock) {
-        this.id = id;
+    public ProductDto(String name, int price, int stock) {
+        this.id = cnt_id++;
         this.name = name;
         this.price = price;
         this.stock = stock;
     }
 
-    public int getId() {
-        return id;
+    public ProductDto updatedProduct(ProductDto updateProduct) {
+        this.name = updateProduct.name;
+        this.price = updateProduct.price;
+        this.stock = updateProduct.stock;
+
+        return this;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
+    @Override
+    public String toString() {
+        String listFormat = String.format("%-6d%-20s\t%-15d\t%-10d",
+                this.id, this.name, this.price, this.stock);
+        return listFormat;
     }
 }
